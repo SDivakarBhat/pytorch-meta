@@ -21,7 +21,7 @@ def get_accuracy(prototypes, embeddings, targets):
     accuracy : `torch.FloatTensor` instance
         Mean accuracy on the query points.
     """
-    sq_distances = torch.sum((prototypes.unsqueeze(1)
-        - embeddings.unsqueeze(2)) ** 2, dim=-1)
-    _, predictions = torch.min(sq_distances, dim=-1)
+    sq_distances = torch.sum((prototypes.unsqueeze(2)
+        - embeddings.unsqueeze(1)) ** 2, dim=-1)
+    _, predictions = torch.min(sq_distances, dim=-2)
     return torch.mean(predictions.eq(targets).float())
